@@ -65,7 +65,7 @@ if __name__ == '__main__':
     # load env files
     load_dotenv()
 
-    prompt1 = "I'm going through a divorce and wondering about child custody laws in India. Can you provide guidance on how the Indian Law influences such cases?"
+    prompt1 = "I'm going through a divorce and wondering about child custody. Can you provide guidance on how the Indian Law influences such cases?"
     prompt2 = "If I meet an  car accident and the other person dies because my driving mistake, what will be the punishment for me ?"
     prompt3 = "What legal actions can be taken against online fraud and scams in India?"
     prompt4 = "My landlord is refusing to return my security deposit. What should I do in context to Laws in India ??"
