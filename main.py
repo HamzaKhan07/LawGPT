@@ -17,7 +17,7 @@ def load_result(user_query):
     embeddings = GooglePalmEmbeddings()
 
     # store embeddings
-    vectordb = FAISS.load_local('palm_index_ipc', embeddings)
+    vectordb = FAISS.load_local('palm_index', embeddings)
     retriever = vectordb.as_retriever(score_threshold=0.7)
     print('vectordb loaded')
 
@@ -27,7 +27,8 @@ def load_result(user_query):
         "query:\n\n'{user_query}'.\n\nExplain the law principles, relevant articles, and any precedents that apply. Answer to the best of your knowledge. If you dont know the answer reply with I don't know"
     )
     user_prompt = prompt_template.format(user_query=user_query)
-    print(user_prompt)
+    bad_chars = [';', ':', '!', "*", "?", '.', ',']
+    user_prompt = ''.join(letter for letter in user_prompt if (letter not in bad_chars))
 
     # question answer chain
     llm = GooglePalm()
@@ -39,10 +40,8 @@ def load_result(user_query):
             print(response['result'], end='\n')
             st.write(response['result'])
 
-            print('References:')
             with st.expander("References"):
                 for doc in response['source_documents']:
-                    print(doc.page_content, end='\n\n')
                     st.write(doc.page_content)
         del response
     except:
@@ -68,7 +67,7 @@ if __name__ == '__main__':
     prompt1 = "I'm going through a divorce and wondering about child custody. Can you provide guidance on how the Indian Law influences such cases?"
     prompt2 = "If I meet an  car accident and the other person dies because my driving mistake, what will be the punishment for me ?"
     prompt3 = "What legal actions can be taken against online fraud and scams in India?"
-    prompt4 = "My landlord is refusing to return my security deposit. What should I do in context to Laws in India ??"
+    prompt4 = "My landlord is refusing to return my security deposit. What should I do in context to Laws in India ?"
 
     # sidebar
     with st.sidebar:

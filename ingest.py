@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 text = ''
-vectordb_file_path="palm_index_ipc"
-pdf = PdfReader('IPC.pdf')
+vectordb_file_path="palm_index_all"
+pdf = PdfReader('Constitution_and_IPC.pdf')
 
 # read pdf
 for page in pdf.pages:
@@ -31,3 +31,4 @@ db = FAISS.from_texts(chunks, embedding=embeddings)
 db.save_local(vectordb_file_path)
 
 print('embeddings saved successfully!')
+
