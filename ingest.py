@@ -2,6 +2,10 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import GooglePalmEmbeddings
 from langchain.vectorstores import FAISS
 from PyPDF2 import PdfReader
+from dotenv import load_dotenv
+
+# load dotenv
+load_dotenv()
 
 text = ''
 vectordb_file_path="palm_index_ipc"
@@ -19,7 +23,7 @@ chunks = text_splitter.split_text(text=text)
 print(len(chunks))
 
 # create embeddings
-embeddings = GooglePalmEmbeddings(google_api_key='AIzaSyAhdjQL0ziAiWe9ZSFhG2tEn4hGKpis_p4')
+embeddings = GooglePalmEmbeddings()
 
 # store embeddings
 db = FAISS.from_texts(chunks, embedding=embeddings)
